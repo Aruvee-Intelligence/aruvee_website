@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300">
+  <defs>
+    <!-- Subtle shadow for depth -->
+    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="2"/>
+      <feOffset dx="0" dy="2" result="offsetblur"/>
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.2"/>
+      </feComponentTransfer>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Center coral rounded square with shadow -->
+  <rect x="157.5" y="132.5" width="85" height="85" rx="12" fill="#FF6558" filter="url(#shadow)"/>
+  
+  <!-- Top circle (purple-blue) -->
+  <circle cx="200" cy="67" r="28" fill="#5D7EFF" filter="url(#shadow)"/>
+  
+  <!-- Left circle (pink) -->
+  <circle cx="97" cy="157" r="28" fill="#E961B5" filter="url(#shadow)"/>
+  
+  <!-- Right circle (teal-green) -->
+  <circle cx="303" cy="157" r="28" fill="#2DCE71" filter="url(#shadow)"/>
+  
+  <!-- Bottom left circle (blue) -->
+  <circle cx="157.5" cy="242.5" r="28" fill="#3DA1FF" filter="url(#shadow)"/>
+  
+  <!-- Bottom right circle (yellow-gold) -->
+  <circle cx="242.5" cy="242.5" r="28" fill="#FFC30F" filter="url(#shadow)"/>
+</svg>
