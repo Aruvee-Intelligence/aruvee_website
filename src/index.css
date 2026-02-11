@@ -815,7 +815,7 @@ h1, h2, h3, h4, h5, h6 {
   position: absolute;
   border-radius: 50%;
   filter: blur(80px);
-  opacity: 0.4;
+  opacity: 0.15;
   animation: orbFloat 20s ease-in-out infinite;
 }
 
@@ -826,7 +826,7 @@ h1, h2, h3, h4, h5, h6 {
   top: -300px;
   right: -200px;
   animation-delay: 0s;
-  opacity: 0.6;
+  opacity: 0.2;
 }
 
 .orb-2 {
@@ -836,7 +836,7 @@ h1, h2, h3, h4, h5, h6 {
   bottom: -200px;
   left: -200px;
   animation-delay: -5s;
-  opacity: 0.5;
+  opacity: 0.15;
 }
 
 .orb-3 {
@@ -846,7 +846,7 @@ h1, h2, h3, h4, h5, h6 {
   top: 30%;
   right: 10%;
   animation-delay: -10s;
-  opacity: 0.4;
+  opacity: 0.12;
 }
 
 .orb-4 {
@@ -856,7 +856,7 @@ h1, h2, h3, h4, h5, h6 {
   bottom: 20%;
   right: 5%;
   animation-delay: -15s;
-  opacity: 0.35;
+  opacity: 0.1;
 }
 
 @keyframes orbFloat {
@@ -886,7 +886,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .grid-line {
   position: absolute;
-  background: linear-gradient(90deg, transparent, rgba(255, 101, 88, 0.2), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255, 101, 88, 0.14), transparent);
   animation: gridPulse 3s ease-in-out infinite;
 }
 
@@ -914,12 +914,12 @@ h1, h2, h3, h4, h5, h6 {
 
 @keyframes gridPulse {
   0%, 100% {
-    opacity: 0.4;
+    opacity: 0.14;
     transform: scaleX(1);
   }
   50% {
-    opacity: 0.9;
-    transform: scaleX(1.05);
+    opacity: 0.7;
+    transform: scaleX(1.02);
   }
 }
 
@@ -939,9 +939,9 @@ h1, h2, h3, h4, h5, h6 {
   height: 6px;
   background: var(--primary);
   border-radius: 50%;
-  opacity: 0.8;
+  opacity: 0.3;
   animation: particleFloat 12s linear infinite;
-  box-shadow: 0 0 10px var(--primary), 0 0 20px var(--primary);
+  box-shadow: 0 0 9px var(--primary);
 }
 
 .particle-1 { left: 10%; animation-delay: 0s; animation-duration: 10s; }
@@ -990,19 +990,19 @@ h1, h2, h3, h4, h5, h6 {
   right: 0;
   bottom: 0;
   background-image: 
-    radial-gradient(circle at 20% 30%, rgba(255, 101, 88, 0.08) 0%, transparent 50%),
-    radial-gradient(circle at 80% 70%, rgba(93, 126, 255, 0.08) 0%, transparent 50%),
-    radial-gradient(circle at 50% 50%, rgba(45, 206, 113, 0.06) 0%, transparent 60%),
-    radial-gradient(circle at 30% 70%, rgba(233, 97, 181, 0.06) 0%, transparent 40%);
+    radial-gradient(circle at 20% 30%, rgba(255, 101, 88, 0.04) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(93, 126, 255, 0.04) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(45, 206, 113, 0.03) 0%, transparent 60%),
+    radial-gradient(circle at 30% 70%, rgba(233, 97, 181, 0.03) 0%, transparent 40%);
   animation: circuitPulse 6s ease-in-out infinite;
 }
 
 @keyframes circuitPulse {
   0%, 100% {
-    opacity: 0.7;
+    opacity: 0.5;
   }
   50% {
-    opacity: 1.2;
+    opacity: 0.8;
   }
 }
 

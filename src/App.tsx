@@ -123,7 +123,7 @@ function HomePage() {
               className="section-title"
               style={{ fontSize: '3rem', color: 'var(--white)', marginBottom: '1.25rem' }}
             >
-              <span className="gradient-text">AI agents</span> for semiconductor manufacturing
+              <span className="gradient-text">AI Agents</span> for the Semiconductor Industry
             </motion.h1>
 
             <motion.p
@@ -132,8 +132,8 @@ function HomePage() {
               transition={{ delay: 0.1, duration: 0.6 }}
               style={{ fontSize: '1rem', color: 'var(--gray-400)', marginBottom: '2rem', maxWidth: '540px', lineHeight: 1.6 }}
             >
-              AI agents that automate yield analysis, process troubleshooting, and equipment diagnostics. 
-              Reduce response time from hours to minutes.
+              AI agents that work alongside your engineers like trusted colleagues—automating yield analysis, 
+              process troubleshooting, and equipment diagnostics. Reduce response time from hours to minutes.
             </motion.p>
 
             <motion.div
@@ -163,7 +163,7 @@ function HomePage() {
             className="section-header"
           >
             <h2>AI agents for every role</h2>
-            <p>Deploy specialized agents that work 24/7</p>
+            <p>Colleagues that never clock out—specialized agents working alongside your team 24/7</p>
           </motion.div>
 
           <motion.div
