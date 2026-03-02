@@ -2,7 +2,6 @@ import { BrowserRouter as Router, Routes, Route, NavLink, Link } from 'react-rou
 import { motion } from 'framer-motion';
 import { 
   Cpu, 
-  Users, 
   ArrowRight,
   BarChart3,
   Settings,
@@ -568,15 +567,10 @@ function ProductPage() {
 
 // About Page
 function AboutPage() {
-  const team = [
-    { name: 'Ponmithiran', role: 'Founder & CEO', bio: 'Ex-AMD Senior Data Scientist. 7+ years in semiconductor AI.' },
-    { name: 'Ying Xi', role: 'Data Scientist', bio: 'NTU Computing. Ex-AMD AI Research Intern.' },
-  ];
-
   return (
     <div className="page" style={{ paddingTop: '72px' }}>
       {/* Mission */}
-      <section className="section-hero" style={{ minHeight: '60vh' }}>
+      <section className="section-hero" style={{ minHeight: '50vh' }}>
         <DynamicBackground />
         <div className="container" style={{ maxWidth: '1280px', margin: '0 auto', textAlign: 'center', position: 'relative', zIndex: 2 }}>
           <motion.span
@@ -585,7 +579,7 @@ function AboutPage() {
             className="tag"
             style={{ marginBottom: '24px' }}
           >
-            About Us
+            Our Mission
           </motion.span>
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
@@ -594,8 +588,8 @@ function AboutPage() {
             className="section-title"
             style={{ fontSize: '3rem', color: 'var(--white)', marginTop: '24px' }}
           >
-            Capture Knowledge.<br />
-            <span className="gradient-text">Scale Expertise.</span>
+            Democratize <span className="gradient-text">Deep Tech</span><br />
+            Semiconductor Talent
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -603,50 +597,11 @@ function AboutPage() {
             transition={{ delay: 0.2 }}
             style={{ fontSize: '1.125rem', color: 'var(--gray-400)', marginTop: '24px', maxWidth: '640px', marginLeft: 'auto', marginRight: 'auto' }}
           >
-            Semiconductor manufacturing is losing decades of institutional knowledge 
-            to retirement. Aruvee captures that expertise in AI agents that work 
-            alongside your teams—24/7, across every shift.
+            The semiconductor industry faces a critical talent shortage. We believe 
+            every fab should have access to world-class expertise. Aruvee makes 
+            elite semiconductor knowledge accessible to all—leveling the playing 
+            field through AI.
           </motion.p>
-        </div>
-      </section>
-
-      {/* Team */}
-      <section className="section section-dark">
-        <div className="container">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="section-header center"
-          >
-            <h2>Team</h2>
-            <p>Deep expertise in semiconductors and AI</p>
-          </motion.div>
-
-          <motion.div
-            variants={stagger}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="grid-2"
-            style={{ maxWidth: '800px', margin: '0 auto' }}
-          >
-            {team.map((member, i) => (
-              <motion.div key={i} variants={fadeIn} className="card" style={{ textAlign: 'center' }}>
-                <div 
-                  className="card-icon" 
-                  style={{ margin: '0 auto 20px', width: '80px', height: '80px', borderRadius: '0', background: 'var(--primary)' }}
-                >
-                  <Users size={32} color="white" />
-                </div>
-                <h3 className="card-title">{member.name}</h3>
-                <p style={{ color: 'var(--primary)', fontSize: '0.8125rem', fontWeight: 600, marginBottom: '12px' }}>
-                  {member.role}
-                </p>
-                <p className="card-text">{member.bio}</p>
-              </motion.div>
-            ))}
-          </motion.div>
         </div>
       </section>
 
