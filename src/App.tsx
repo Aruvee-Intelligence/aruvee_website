@@ -122,7 +122,7 @@ function HomePage() {
               className="section-title"
               style={{ fontSize: '3rem', color: 'var(--white)', marginBottom: '1.25rem' }}
             >
-              <span className="gradient-text">AI Agents</span> for the Semiconductor Industry
+              <span className="gradient-text">AI agents</span> for Semiconductor Engineering
             </motion.h1>
 
             <motion.p
@@ -152,7 +152,7 @@ function HomePage() {
         </div>
       </section>
 
-      {/* AI Agents -->
+      {/* AI Agents */}
       <section className="section section-light">
         <div className="container">
           <motion.div
@@ -297,7 +297,7 @@ function HomePage() {
             className="section-header center"
           >
             <h2>See it in your fab</h2>
-            <p>Free pilot program with guaranteed ROI metrics</p>
+            <p>Design partnership program with guaranteed ROI metrics</p>
           </motion.div>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -456,7 +456,7 @@ function ProductPage() {
             className="section-header"
           >
             <h2>How it works</h2>
-            <p>Enterprise-grade architecture</p>
+            <p>Connects to what you have. Adapts to how your fab runs. Works where your team already works.</p>
           </motion.div>
 
           <motion.div
@@ -464,77 +464,68 @@ function ProductPage() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="business-grid"
+            className="grid-3"
           >
-            <motion.div variants={fadeIn} className="business-card">
-              <h3>Smart query routing</h3>
-              <p>Questions automatically routed to the right agent. Context-aware processing ensures accurate, relevant responses every time.</p>
-            </motion.div>
-            <motion.div variants={fadeIn} className="business-card">
-              <h3>Knowledge database</h3>
-              <p>Structured repository of process specs, equipment manuals, and historical resolutions. Captures and preserves tribal knowledge.</p>
-            </motion.div>
-            <motion.div variants={fadeIn} className="business-card">
-              <h3>Adaptive learning</h3>
-              <p>Agents improve from feedback. Custom training on your specific processes, equipment, and issue patterns.</p>
-            </motion.div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Integration */}
-      <section className="section section-dark">
-        <div className="container">
-          <div className="platform-demo">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="platform-info"
-            >
-              <h3>Connects to your existing systems</h3>
-              <p>No rip-and-replace. Aruvee integrates with your current infrastructure and starts delivering value immediately.</p>
-              <ul className="feature-list">
-                <li>MES integration (Camstar, PROMIS, etc.)</li>
+            <motion.div variants={fadeIn} className="card">
+              <div style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--primary)', marginBottom: '8px' }}>
+                Step 1
+              </div>
+              <h3 className="card-title">Connect your systems</h3>
+              <p className="card-text" style={{ marginBottom: '1rem' }}>No rip-and-replace. Aruvee plugs into what you already run:</p>
+              <ul className="feature-list" style={{ marginBottom: 0 }}>
+                <li>MES (Camstar, PROMIS, etc.)</li>
                 <li>SPC systems (InfinityQS, etc.)</li>
                 <li>Equipment interfaces (SECS/GEM)</li>
                 <li>Data historians</li>
-                <li>On-premise or cloud deployment</li>
+                <li>Wikis, JIRA/Confluence, Git & design specs</li>
               </ul>
-              <a href="mailto:ponmithiran@aruvee.sg" className="btn btn-primary">Discuss Your Setup</a>
             </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="platform-visual"
-            >
-              <div className="platform-header">
-                <span className="platform-logo">Integration</span>
+            <motion.div variants={fadeIn} className="card">
+              <div style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--primary)', marginBottom: '8px' }}>
+                Step 2
               </div>
-              <div style={{ padding: '1.5rem', color: 'var(--gray-400)' }}>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                  <div style={{ background: 'var(--navy-light)', padding: '1rem', textAlign: 'center' }}>
-                    <strong style={{ color: 'var(--white)' }}>Your MES / SPC / Equipment</strong>
-                  </div>
-                  <div style={{ textAlign: 'center', fontSize: '1.5rem' }}>↓</div>
-                  <div style={{ background: 'var(--primary)', padding: '1rem', textAlign: 'center' }}>
-                    <strong style={{ color: 'var(--white)' }}>Aruvee Platform</strong>
-                  </div>
-                  <div style={{ textAlign: 'center', fontSize: '1.5rem' }}>↓</div>
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem' }}>
-                    <div style={{ background: 'var(--navy-light)', padding: '0.75rem', textAlign: 'center', fontSize: '0.875rem' }}>
-                      <span style={{ color: 'var(--gray-300)' }}>Insights</span>
-                    </div>
-                    <div style={{ background: 'var(--navy-light)', padding: '0.75rem', textAlign: 'center', fontSize: '0.875rem' }}>
-                      <span style={{ color: 'var(--gray-300)' }}>Actions</span>
-                    </div>
-                  </div>
+              <h3 className="card-title">Aruvee adapts to your environment</h3>
+              <p className="card-text" style={{ marginBottom: '1rem' }}>Your data is used as context only—never for training—and it stays yours:</p>
+              <ul className="feature-list" style={{ marginBottom: 0 }}>
+                <li>Grounded in your processes, tools, and recipes</li>
+                <li>Draws on your engineers' tribal knowledge</li>
+                <li>Learns continuously from your team's feedback</li>
+                <li>Runs in your environment—on-premise or cloud</li>
+              </ul>
+            </motion.div>
+
+            <motion.div variants={fadeIn} className="card">
+              <div style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--primary)', marginBottom: '8px' }}>
+                Step 3
+              </div>
+              <h3 className="card-title">Agents join your team</h3>
+              <p className="card-text">Right in Slack or Teams—no new tools to learn.</p>
+              <div className="chat-messages" style={{ marginTop: '1rem' }}>
+                <div className="chat-message user">
+                  <strong style={{ display: 'block', fontSize: '0.7rem', marginBottom: '2px', opacity: 0.85 }}>Engineer</strong>
+                  Why is yield drifting?
+                </div>
+                <div className="chat-message agent">
+                  <strong style={{ display: 'block', fontSize: '0.7rem', marginBottom: '2px', color: 'var(--primary)' }}>Yield Agent</strong>
+                  CVD chamber drift on Line 3. Suggested PM today.
                 </div>
               </div>
+              <p style={{ fontSize: '0.8125rem', fontStyle: 'italic', color: 'var(--gray-500)', marginTop: '1rem' }}>
+                Feels like another colleague on the channel.
+              </p>
             </motion.div>
-          </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="cta-buttons"
+            style={{ justifyContent: 'center', marginTop: '3rem' }}
+          >
+            <a href="mailto:ponmithiran@aruvee.sg" className="btn btn-primary">Discuss Your Setup</a>
+          </motion.div>
         </div>
       </section>
 
@@ -548,7 +539,7 @@ function ProductPage() {
             className="section-header center"
           >
             <h2>Ready to see Aruvee?</h2>
-            <p>Free pilot with guaranteed ROI measurement</p>
+            <p>Design partnership with guaranteed ROI measurement</p>
           </motion.div>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -588,8 +579,8 @@ function AboutPage() {
             className="section-title"
             style={{ fontSize: '3rem', color: 'var(--white)', marginTop: '24px' }}
           >
-            Democratize <span className="gradient-text">Deep Tech</span><br />
-            Semiconductor Talent
+            Scale semiconductor <span className="gradient-text">Revenue</span><br />
+            without growing Opex
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -597,10 +588,11 @@ function AboutPage() {
             transition={{ delay: 0.2 }}
             style={{ fontSize: '1.125rem', color: 'var(--gray-400)', marginTop: '24px', maxWidth: '640px', marginLeft: 'auto', marginRight: 'auto' }}
           >
-            The semiconductor industry faces a critical talent shortage. We believe 
-            every fab should have access to world-class expertise. Aruvee makes 
-            elite semiconductor knowledge accessible to all—leveling the playing 
-            field through AI.
+            Aruvee turns engineering efficiency into operating leverage. Our AI
+            agents compress root-cause analysis from days to minutes, lift yield
+            and tool availability, and unlock fab capacity you've already paid
+            for—driving revenue growth on a flat cost base. More output per
+            engineer. More wafers per fab. More earnings per dollar of opex.
           </motion.p>
         </div>
       </section>
@@ -614,7 +606,7 @@ function AboutPage() {
             viewport={{ once: true }}
             className="section-header center"
           >
-            <h2>Join the Pilot Program</h2>
+            <h2>Be our Design Partner</h2>
             <p>Be among the first to deploy agentic AI in your fab</p>
           </motion.div>
           <motion.div
