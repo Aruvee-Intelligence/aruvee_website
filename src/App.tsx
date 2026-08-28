@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, NavLink, Link } from 'react-router-dom';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { 
   Cpu, 
@@ -57,7 +58,20 @@ function DynamicBackground() {
 }
 
 // Navigation Component
-function Navigation() {
+function Navigation() {const [showModal, setShowModal] = useState(false);
+const [email, setEmail] = useState('');
+const [status, setStatus] = useState<'idle' | 'sending' | 'sent'>('idle');
+
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  setStatus('sending');
+  await fetch('https://formspree.io/f/xjyvvkal', {
+    method: 'POST',
+    headers: { 'Accept': 'application/json' },
+    body: new FormData(e.target as HTMLFormElement),
+  });
+  setStatus('sent');
+};
   return (
     <nav className="nav">
       <div className="nav-container">
@@ -75,11 +89,41 @@ function Navigation() {
           <NavLink to="/about" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
             About
           </NavLink>
-          <a href="mailto:ponmithiran@aruvee.sg" className="btn btn-primary" style={{ padding: '10px 20px', fontSize: '12px' }}>
+          <button onClick={() => setShowModal(true)} className="btn btn-primary" style={{ padding: '10px 20px' }}>
             Request Demo
-          </a>
+          </button>
         </div>
-      </div>
+      </div>{showModal && (
+  <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.6)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 100 }}>
+    <div style={{ background: '#0F1420', border: '1px solid #333E52', borderRadius: 12, padding: '2rem', maxWidth: 380, width: '90%' }}>
+      {status === 'sent' ? (
+        <>
+          <p style={{ color: '#fff', fontSize: '1.1rem', marginBottom: '0.5rem' }}>Thanks — we'll be in touch.</p>
+          <button onClick={() => { setShowModal(false); setStatus('idle'); setEmail(''); }} className="btn btn-outline-light">Close</button>
+        </>
+      ) : (
+        <form onSubmit={handleSubmit}>
+          <p style={{ color: '#fff', fontSize: '1.1rem', marginBottom: '1rem' }}>See Aruvee in action</p>
+          <input
+            type="email"
+            name="email"
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="you@company.com"
+            style={{ width: '100%', padding: '10px', borderRadius: 6, border: '1px solid #333E52', background: '#151B29', color: '#fff', marginBottom: '1rem' }}
+          />
+          <div style={{ display: 'flex', gap: '8px' }}>
+            <button type="submit" className="btn btn-primary" disabled={status === 'sending'}>
+              {status === 'sending' ? 'Sending...' : 'Send request'}
+            </button>
+            <button type="button" onClick={() => setShowModal(false)} className="btn btn-outline-light">Cancel</button>
+          </div>
+        </form>
+      )}
+    </div>
+  </div>
+)}
     </nav>
   );
 }
@@ -107,7 +151,20 @@ function Footer() {
 }
 
 // Home Page
-function HomePage() {
+function HomePage() {const [showModal, setShowModal] = useState(false);
+const [email, setEmail] = useState('');
+const [status, setStatus] = useState<'idle' | 'sending' | 'sent'>('idle');
+
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  setStatus('sending');
+  await fetch('https://formspree.io/f/xjyvvkal', {
+    method: 'POST',
+    headers: { 'Accept': 'application/json' },
+    body: new FormData(e.target as HTMLFormElement),
+  });
+  setStatus('sent');
+};
   return (
     <div className="page">
       {/* Hero */}
@@ -122,9 +179,8 @@ function HomePage() {
               className="section-title"
               style={{ fontSize: '3rem', color: 'var(--white)', marginBottom: '1.25rem' }}
             >
-              <span className="gradient-text">AI agents</span> for Semiconductor Engineering
-            </motion.h1>
-
+            Cut yield excursion root cause time from <span style={{ color: '#FF6558' }}>days to minutes</span>
+              </motion.h1>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -132,7 +188,7 @@ function HomePage() {
               style={{ fontSize: '1rem', color: 'var(--gray-400)', marginBottom: '2rem', maxWidth: '540px', lineHeight: 1.6 }}
             >
               AI agents that work alongside your engineers like trusted colleagues—automating yield analysis, 
-              process troubleshooting, and equipment diagnostics. Reduce response time from hours to minutes.
+              process troubleshooting, and equipment diagnostics.
             </motion.p>
 
             <motion.div
@@ -141,16 +197,43 @@ function HomePage() {
               transition={{ delay: 0.2, duration: 0.6 }}
               className="cta-buttons"
             >
-              <a href="mailto:ponmithiran@aruvee.sg" className="btn btn-primary">
-                Request Demo
-              </a>
-              <Link to="/product" className="btn btn-outline-light">
-                See How It Works
-              </Link>
+            <button onClick={() => setShowModal(true)} className="btn btn-primary">
+              Request Demo
+            </button>
             </motion.div>
           </motion.div>
         </div>
-      </section>
+      </section> {showModal && (
+  <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.6)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 100 }}>
+    <div style={{ background: '#0F1420', border: '1px solid #333E52', borderRadius: 12, padding: '2rem', maxWidth: 380, width: '90%' }}>
+      {status === 'sent' ? (
+        <>
+          <p style={{ color: '#fff', fontSize: '1.1rem', marginBottom: '0.5rem' }}>Thanks — we'll be in touch.</p>
+          <button onClick={() => { setShowModal(false); setStatus('idle'); setEmail(''); }} className="btn btn-outline-light">Close</button>
+        </>
+      ) : (
+        <form onSubmit={handleSubmit}>
+          <p style={{ color: '#fff', fontSize: '1.1rem', marginBottom: '1rem' }}>See Aruvee in action</p>
+          <input
+            type="email"
+            name="email"
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="you@company.com"
+            style={{ width: '100%', padding: '10px', borderRadius: 6, border: '1px solid #333E52', background: '#151B29', color: '#fff', marginBottom: '1rem' }}
+          />
+          <div style={{ display: 'flex', gap: '8px' }}>
+            <button type="submit" className="btn btn-primary" disabled={status === 'sending'}>
+              {status === 'sending' ? 'Sending...' : 'Send request'}
+            </button>
+            <button type="button" onClick={() => setShowModal(false)} className="btn btn-outline-light">Cancel</button>
+          </div>
+        </form>
+      )}
+    </div>
+  </div>
+)}
 
       {/* AI Agents */}
       <section className="section section-light">
