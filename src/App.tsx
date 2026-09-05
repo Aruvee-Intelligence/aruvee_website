@@ -1,6 +1,9 @@
+import posthog from 'posthog-js';
 import { BrowserRouter as Router, Routes, Route, NavLink, Link } from 'react-router-dom';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import heroImage from './assets/hero-chip.png';
+
 import { 
   Cpu, 
   ArrowRight,
@@ -89,7 +92,14 @@ const handleSubmit = async (e: React.FormEvent) => {
           <NavLink to="/about" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
             About
           </NavLink>
-          <button onClick={() => setShowModal(true)} className="btn btn-primary" style={{ padding: '10px 20px' }}>
+          <button
+            onClick={() => {
+            posthog.capture('demo_button_clicked', { location: 'nav' });
+            setShowModal(true);
+          }}
+          className="btn btn-primary"
+          style={{ padding: '10px 20px' }}
+          >
             Request Demo
           </button>
         </div>
@@ -168,9 +178,28 @@ const handleSubmit = async (e: React.FormEvent) => {
   return (
     <div className="page">
       {/* Hero */}
-      <section className="section-hero">
-        <DynamicBackground />
-        <div className="container" style={{ maxWidth: '1280px', margin: '0 auto', position: 'relative', zIndex: 2 }}>
+            <section
+        className="section-hero"
+        style={{
+          position: 'relative',
+          overflow: 'hidden',
+          display: 'flex',
+          alignItems: 'center',
+          backgroundImage: `url(${heroImage})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center 40%',
+        }}
+      >
+        {/* <DynamicBackground /> */}
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            zIndex: 1,
+            background: 'linear-gradient(90deg, #0F1420 0%, #0F1420 25%, rgba(15,20,32,0.6) 50%, transparent 78%)',
+          }}
+        />
+        <div className="container" style={{ maxWidth: '1280px', marginLeft: '4%', marginRight: 'auto', position: 'relative', zIndex: 2 }}>
           <motion.div style={{ maxWidth: '720px' }}>
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
@@ -178,17 +207,16 @@ const handleSubmit = async (e: React.FormEvent) => {
               transition={{ duration: 0.6 }}
               className="section-title"
               style={{ fontSize: '3rem', color: 'var(--white)', marginBottom: '1.25rem' }}
-            >
-            Cut yield excursion root cause time from <span style={{ color: '#FF6558' }}>days to minutes</span>
-              </motion.h1>
+>
+              <span style={{ color: '#FF6558' }}>AI agents</span> for semiconductor engineering
+            </motion.h1>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1, duration: 0.6 }}
-              style={{ fontSize: '1rem', color: 'var(--gray-400)', marginBottom: '2rem', maxWidth: '540px', lineHeight: 1.6 }}
-            >
-              AI agents that work alongside your engineers like trusted colleagues—automating yield analysis, 
-              process troubleshooting, and equipment diagnostics.
+              style={{ fontSize: '1.2rem', color: 'var(--gray-400)', marginBottom: '2rem', maxWidth: '540px', lineHeight: 1.6 }}
+>
+              Cut yield excursion root cause time from days to minutes.
             </motion.p>
 
             <motion.div
@@ -197,8 +225,14 @@ const handleSubmit = async (e: React.FormEvent) => {
               transition={{ delay: 0.2, duration: 0.6 }}
               className="cta-buttons"
             >
-            <button onClick={() => setShowModal(true)} className="btn btn-primary">
-              Request Demo
+            <button
+              onClick={() => {
+                posthog.capture('demo_button_clicked', { location: 'hero' });
+                setShowModal(true);
+              }}
+             className="btn btn-primary"
+            >
+               Request Demo
             </button>
             </motion.div>
           </motion.div>
@@ -404,7 +438,7 @@ function ProductPage() {
       {/* Hero */}
       <section className="section-hero" style={{ minHeight: '60vh' }}>
         <DynamicBackground />
-        <div className="container" style={{ maxWidth: '1280px', margin: '0 auto', position: 'relative', zIndex: 2 }}>
+        <div className="container" style={{ maxWidth: '1280px', marginLeft: '4%', marginRight: 'auto', position: 'relative', zIndex: 2 }}>
           <motion.div style={{ maxWidth: '720px' }}>
             <motion.span
               initial={{ opacity: 0 }}
