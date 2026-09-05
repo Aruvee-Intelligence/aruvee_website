@@ -191,7 +191,7 @@ const handleSubmit = async (e: React.FormEvent) => {
         }}
       >
         {/* <DynamicBackground /> */}
-        <div
+        <div className="hero-scrim"
           style={{
             position: 'absolute',
             inset: 0,
@@ -214,7 +214,7 @@ const handleSubmit = async (e: React.FormEvent) => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1, duration: 0.6 }}
-              style={{ fontSize: '1.2rem', color: 'var(--gray-400)', marginBottom: '2rem', maxWidth: '540px', lineHeight: 1.6 }}
+              style={{ fontSize: '1.2rem', color: 'var(--gray-100)', marginBottom: '2rem', maxWidth: '540px', lineHeight: 1.6 }}
 >
               Cut yield excursion root cause time from days to minutes.
             </motion.p>
