@@ -1,6 +1,6 @@
 import posthog from 'posthog-js';
 import { BrowserRouter as Router, Routes, Route, NavLink, Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import heroImage from './assets/hero-chip.png';
 
@@ -61,6 +61,47 @@ function DynamicBackground() {
 }
 
 // Navigation Component
+function CountdownBanner({ onClick }: { onClick: () => void }) {
+  const [timeLeft, setTimeLeft] = useState('48:00:00');
+
+  useEffect(() => {
+    const cycleMs = 48 * 60 * 60 * 1000;
+    const update = () => {
+      const now = Date.now();
+      const remaining = cycleMs - (now % cycleMs);
+      const hours = Math.floor(remaining / (1000 * 60 * 60));
+      const minutes = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((remaining % (1000 * 60)) / 1000);
+      setTimeLeft(
+        `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`
+      );
+    };
+    update();
+    const interval = setInterval(update, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div
+      onClick={onClick}
+      style={{
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        width: '100%',
+        background: '#FF6558',
+        color: '#fff',
+        textAlign: 'center',
+        padding: '10px 0',
+        fontWeight: 600,
+        fontSize: '14px',
+        zIndex: 3,
+        cursor: 'pointer',
+      }}
+    >
+      Free pilot promotion ends in {timeLeft} hours!    </div>
+  );
+}
 function Navigation() {const [showModal, setShowModal] = useState(false);
 const [email, setEmail] = useState('');
 const [status, setStatus] = useState<'idle' | 'sending' | 'sent'>('idle');
@@ -100,7 +141,7 @@ const handleSubmit = async (e: React.FormEvent) => {
           className="btn btn-primary"
           style={{ padding: '10px 20px' }}
           >
-            Request Demo
+            Start Free Pilot
           </button>
         </div>
       </div>{showModal && (
@@ -232,11 +273,17 @@ const handleSubmit = async (e: React.FormEvent) => {
               }}
              className="btn btn-primary"
             >
-               Request Demo
+               Start Free Pilot
             </button>
             </motion.div>
           </motion.div>
         </div>
+        <CountdownBanner
+          onClick={() => {
+            posthog.capture('demo_button_clicked', { location: 'banner' });
+            setShowModal(true);
+          }}
+        />
       </section> {showModal && (
   <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.6)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 100 }}>
     <div style={{ background: '#0F1420', border: '1px solid #333E52', borderRadius: 12, padding: '2rem', maxWidth: 380, width: '90%' }}>
