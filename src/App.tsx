@@ -1,5 +1,9 @@
+import posthog from 'posthog-js';
 import { BrowserRouter as Router, Routes, Route, NavLink, Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import heroImage from './assets/hero-chip.png';
+
 import { 
   Cpu, 
   ArrowRight,
@@ -57,7 +61,61 @@ function DynamicBackground() {
 }
 
 // Navigation Component
-function Navigation() {
+function CountdownBanner({ onClick }: { onClick: () => void }) {
+  const [timeLeft, setTimeLeft] = useState('48:00:00');
+
+  useEffect(() => {
+    const cycleMs = 48 * 60 * 60 * 1000;
+    const update = () => {
+      const now = Date.now();
+      const remaining = cycleMs - (now % cycleMs);
+      const hours = Math.floor(remaining / (1000 * 60 * 60));
+      const minutes = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((remaining % (1000 * 60)) / 1000);
+      setTimeLeft(
+        `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`
+      );
+    };
+    update();
+    const interval = setInterval(update, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div
+      onClick={onClick}
+      style={{
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        width: '100%',
+        background: '#FF6558',
+        color: '#fff',
+        textAlign: 'center',
+        padding: '10px 0',
+        fontWeight: 600,
+        fontSize: '14px',
+        zIndex: 3,
+        cursor: 'pointer',
+      }}
+    >
+      Free pilot promotion ends in {timeLeft} hours!    </div>
+  );
+}
+function Navigation() {const [showModal, setShowModal] = useState(false);
+const [email, setEmail] = useState('');
+const [status, setStatus] = useState<'idle' | 'sending' | 'sent'>('idle');
+
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  setStatus('sending');
+  await fetch('https://formspree.io/f/xjyvvkal', {
+    method: 'POST',
+    headers: { 'Accept': 'application/json' },
+    body: new FormData(e.target as HTMLFormElement),
+  });
+  setStatus('sent');
+};
   return (
     <nav className="nav">
       <div className="nav-container">
@@ -75,11 +133,48 @@ function Navigation() {
           <NavLink to="/about" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
             About
           </NavLink>
-          <a href="mailto:ponmithiran@aruvee.sg" className="btn btn-primary" style={{ padding: '10px 20px', fontSize: '12px' }}>
-            Request Demo
-          </a>
+          <button
+            onClick={() => {
+            posthog.capture('demo_button_clicked', { location: 'nav' });
+            setShowModal(true);
+          }}
+          className="btn btn-primary"
+          style={{ padding: '10px 20px' }}
+          >
+            Start Free Pilot
+          </button>
         </div>
-      </div>
+      </div>{showModal && (
+  <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.6)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 100 }}>
+    <div style={{ background: '#0F1420', border: '1px solid #333E52', borderRadius: 12, padding: '2rem', maxWidth: 380, width: '90%' }}>
+      {status === 'sent' ? (
+        <>
+          <p style={{ color: '#fff', fontSize: '1.1rem', marginBottom: '0.5rem' }}>Thanks — we'll be in touch.</p>
+          <button onClick={() => { setShowModal(false); setStatus('idle'); setEmail(''); }} className="btn btn-outline-light">Close</button>
+        </>
+      ) : (
+        <form onSubmit={handleSubmit}>
+          <p style={{ color: '#fff', fontSize: '1.1rem', marginBottom: '1rem' }}>See Aruvee in action</p>
+          <input
+            type="email"
+            name="email"
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="you@company.com"
+            style={{ width: '100%', padding: '10px', borderRadius: 6, border: '1px solid #333E52', background: '#151B29', color: '#fff', marginBottom: '1rem' }}
+          />
+          <div style={{ display: 'flex', gap: '8px' }}>
+            <button type="submit" className="btn btn-primary" disabled={status === 'sending'}>
+              {status === 'sending' ? 'Sending...' : 'Send request'}
+            </button>
+            <button type="button" onClick={() => setShowModal(false)} className="btn btn-outline-light">Cancel</button>
+          </div>
+        </form>
+      )}
+    </div>
+  </div>
+)}
     </nav>
   );
 }
@@ -107,13 +202,45 @@ function Footer() {
 }
 
 // Home Page
-function HomePage() {
+function HomePage() {const [showModal, setShowModal] = useState(false);
+const [email, setEmail] = useState('');
+const [status, setStatus] = useState<'idle' | 'sending' | 'sent'>('idle');
+
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  setStatus('sending');
+  await fetch('https://formspree.io/f/xjyvvkal', {
+    method: 'POST',
+    headers: { 'Accept': 'application/json' },
+    body: new FormData(e.target as HTMLFormElement),
+  });
+  setStatus('sent');
+};
   return (
     <div className="page">
       {/* Hero */}
-      <section className="section-hero">
-        <DynamicBackground />
-        <div className="container" style={{ maxWidth: '1280px', margin: '0 auto', position: 'relative', zIndex: 2 }}>
+            <section
+        className="section-hero"
+        style={{
+          position: 'relative',
+          overflow: 'hidden',
+          display: 'flex',
+          alignItems: 'center',
+          backgroundImage: `url(${heroImage})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center 40%',
+        }}
+      >
+        {/* <DynamicBackground /> */}
+        <div className="hero-scrim"
+          style={{
+            position: 'absolute',
+            inset: 0,
+            zIndex: 1,
+            background: 'linear-gradient(90deg, #0F1420 0%, #0F1420 25%, rgba(15,20,32,0.6) 50%, transparent 78%)',
+          }}
+        />
+        <div className="container" style={{ maxWidth: '1280px', marginLeft: '4%', marginRight: 'auto', position: 'relative', zIndex: 2 }}>
           <motion.div style={{ maxWidth: '720px' }}>
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
@@ -121,18 +248,16 @@ function HomePage() {
               transition={{ duration: 0.6 }}
               className="section-title"
               style={{ fontSize: '3rem', color: 'var(--white)', marginBottom: '1.25rem' }}
-            >
-              <span className="gradient-text">AI agents</span> for Semiconductor Engineering
+>
+              <span style={{ color: '#FF6558' }}>AI agents</span> for semiconductor engineering
             </motion.h1>
-
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1, duration: 0.6 }}
-              style={{ fontSize: '1rem', color: 'var(--gray-400)', marginBottom: '2rem', maxWidth: '540px', lineHeight: 1.6 }}
-            >
-              AI agents that work alongside your engineers like trusted colleagues—automating yield analysis, 
-              process troubleshooting, and equipment diagnostics. Reduce response time from hours to minutes.
+              style={{ fontSize: '1.2rem', color: 'var(--gray-100)', marginBottom: '2rem', maxWidth: '540px', lineHeight: 1.6 }}
+>
+              Cut yield excursion root cause time from days to minutes.
             </motion.p>
 
             <motion.div
@@ -141,16 +266,55 @@ function HomePage() {
               transition={{ delay: 0.2, duration: 0.6 }}
               className="cta-buttons"
             >
-              <a href="mailto:ponmithiran@aruvee.sg" className="btn btn-primary">
-                Request Demo
-              </a>
-              <Link to="/product" className="btn btn-outline-light">
-                See How It Works
-              </Link>
+            <button
+              onClick={() => {
+                posthog.capture('demo_button_clicked', { location: 'hero' });
+                setShowModal(true);
+              }}
+             className="btn btn-primary"
+            >
+               Start Free Pilot
+            </button>
             </motion.div>
           </motion.div>
         </div>
-      </section>
+        <CountdownBanner
+          onClick={() => {
+            posthog.capture('demo_button_clicked', { location: 'banner' });
+            setShowModal(true);
+          }}
+        />
+      </section> {showModal && (
+  <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.6)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 100 }}>
+    <div style={{ background: '#0F1420', border: '1px solid #333E52', borderRadius: 12, padding: '2rem', maxWidth: 380, width: '90%' }}>
+      {status === 'sent' ? (
+        <>
+          <p style={{ color: '#fff', fontSize: '1.1rem', marginBottom: '0.5rem' }}>Thanks — we'll be in touch.</p>
+          <button onClick={() => { setShowModal(false); setStatus('idle'); setEmail(''); }} className="btn btn-outline-light">Close</button>
+        </>
+      ) : (
+        <form onSubmit={handleSubmit}>
+          <p style={{ color: '#fff', fontSize: '1.1rem', marginBottom: '1rem' }}>See Aruvee in action</p>
+          <input
+            type="email"
+            name="email"
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="you@company.com"
+            style={{ width: '100%', padding: '10px', borderRadius: 6, border: '1px solid #333E52', background: '#151B29', color: '#fff', marginBottom: '1rem' }}
+          />
+          <div style={{ display: 'flex', gap: '8px' }}>
+            <button type="submit" className="btn btn-primary" disabled={status === 'sending'}>
+              {status === 'sending' ? 'Sending...' : 'Send request'}
+            </button>
+            <button type="button" onClick={() => setShowModal(false)} className="btn btn-outline-light">Cancel</button>
+          </div>
+        </form>
+      )}
+    </div>
+  </div>
+)}
 
       {/* AI Agents */}
       <section className="section section-light">
@@ -321,7 +485,7 @@ function ProductPage() {
       {/* Hero */}
       <section className="section-hero" style={{ minHeight: '60vh' }}>
         <DynamicBackground />
-        <div className="container" style={{ maxWidth: '1280px', margin: '0 auto', position: 'relative', zIndex: 2 }}>
+        <div className="container" style={{ maxWidth: '1280px', marginLeft: '4%', marginRight: 'auto', position: 'relative', zIndex: 2 }}>
           <motion.div style={{ maxWidth: '720px' }}>
             <motion.span
               initial={{ opacity: 0 }}
